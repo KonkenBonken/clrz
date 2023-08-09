@@ -1,0 +1,20 @@
+{
+  "files": [
+    "src/ts/index.ts"
+  ],
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "rootDir": ".",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "esnext",
+    "target": "es6",
+    "strict": true,
+    "allowJs": true,
+    "moduleResolution": "bundler"
+  }
+}
