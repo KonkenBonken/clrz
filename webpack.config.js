@@ -4,13 +4,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 console.log(__dirname, path.resolve(__dirname, 'dist'))
 
 module.exports = {
-  entry: './src/ts/index.ts',
+  entry: './src/ts/index.tsx',
   devtool: 'inline-source-map',
   mode: "development",
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -28,7 +28,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.scss', '.html'],
+    extensions: ['.tsx', '.ts', '.js', '.scss', '.html'],
   },
   output: {
     filename: 'bundle.js',
