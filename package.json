@@ -5,11 +5,8 @@
   "author": "Konrad Pettersson <konrad05pettersson@gmail.com>",
   "license": "ISC",
   "scripts": {
-    "tsc": "tsc",
-    "tscw": "tsc --watch",
-    "wp": "webpack",
-    "wpw": "webpack --watch",
-    "serve": "serve -s build"
+    "wps": "webpack serve --port 3000",
+    "serve": "serve -s dist"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^11.0.0",
