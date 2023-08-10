@@ -1,5 +1,5 @@
 import JSX from './jsx';
-import { TileState } from './enums';
+import { Source, Belt, Direction } from './TileContent';
 import Tile from './Tile';
 
 const gridSize = 10;
@@ -16,6 +16,7 @@ for (let y = 0; y < gridSize; y++)
 // @ts-expect-error
 window.grid = grid;
 
-grid[99].state = TileState.Green;
-grid[0].state = TileState.Blue;
-grid[39].state = TileState.Red;
+grid[99].content = new Source([255, 0, 0]);
+grid[36].content = new Source([0, 0, 255]);
+grid[0].content = new Source([0, 255, 0]);
+grid[10].content = new Belt(Direction.Down);
