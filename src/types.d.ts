@@ -7,6 +7,8 @@ type TagMap = {
   [TagName in TagNames]: Partial<HTMLElementTagNameMap[TagName] & { className: string }>
 }
 
+type color = [r: number, g: number, b: number];
+
 declare namespace JSX {
   type IntrinsicElements = TagMap;
 }

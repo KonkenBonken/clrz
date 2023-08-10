@@ -20,8 +20,13 @@ export default class Tile extends GameObject<HTMLDivElement> {
   constructor(
     readonly x: number,
     readonly y: number,
-    readonly gridEl: HTMLElement
+    gridEl: HTMLElement
   ) {
     super(gridEl);
+  }
+
+  gameTick() {
+    if (this.content?.gameTick)
+      this.content.gameTick()
   }
 }

@@ -10,7 +10,7 @@ export default class GameObject<TagType extends Element = Element> {
       this.element.replaceWith(element)
 
     else if (!this.element && element)
-      this.gridEl.append(element)
+      this.parent.append(element)
 
     else if (this.element && !element)
       this.element.remove()
@@ -19,6 +19,10 @@ export default class GameObject<TagType extends Element = Element> {
   }
 
   constructor(
-    readonly gridEl: Element
+    readonly parent: Element
   ) { }
+
+  protected rerender() {
+    this.element = this.element;
+  }
 }

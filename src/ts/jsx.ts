@@ -20,7 +20,7 @@ export default {
       else
         element.setAttribute(key, value);
 
-    element.append(...content)
+    element.append(...content.filter(Boolean))
 
     return element;
   }
