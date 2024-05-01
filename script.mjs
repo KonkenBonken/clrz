@@ -1,47 +1,11 @@
-let gridSize, grid;
-
-class Tile {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.faces = [0, 0, 0, 0]; // 0:no, 1:in, 2:out
-  }
-
-  setType(type) {
-    this.type = type;
-    switch (type) {
-      case 'generator':
-        this.faces = [0, 2, 0, 0];
-      case 'belt':
-        this.faces = [0, 2, 0, 1];
-    }
-  }
-
-  draw(size) {
-    switch (this.type) {
-      case 'generator':
-        fill(100);
-        break
-      case 'belt':
-        fill(150);
-        break
-      default:
-        noFill();
-    }
-
-    square(
-      this.x * size,
-      this.y * size,
-      size
-    );
-  }
-}
+let gridSize, grid, colors = [];
 
 function setup() {
   createCanvas(
     min(document.body.clientWidth, document.body.clientHeight),
     min(document.body.clientWidth, document.body.clientHeight)
   );
+  frameRate(20);
 
   gridSize = createVector(10, 10);
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
@@ -59,5 +23,15 @@ function draw() {
 
   for (const row of grid)
     for (const tile of row)
+      tile.tick(frameCount % 20 === 0);
+  for (const color of colors)
+    color.tick();
+
+
+  for (const row of grid)
+    for (const tile of row)
       tile.draw(tileSize);
+
+  for (const color of colors)
+    color.draw(tileSize);
 }
