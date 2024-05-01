@@ -18,14 +18,18 @@ class Tile {
     }
   }
 
-  setType(type) {
+  setType(type, dir = 1) {
     this.type = type;
     switch (type) {
       case 'generator':
-        this.faces = [0, 2, 0, 0];
+        this.faces = [0, 0, 0, 0];
+        this.faces[dir] = 2;
         this.clr = [255, 0, 0];
       case 'belt':
-        this.faces = [0, 2, 0, 1];
+        this.faces = [0, 0, 0, 0];
+        this.faces[dir] = 2;
+        this.faces[dir + 2 % 4] = 1;
+
     }
   }
 
