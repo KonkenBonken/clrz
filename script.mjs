@@ -33,6 +33,9 @@ function setup() {
   Belt.build(3, 1, 1);
   Belt.build(4, 1, 2);
   Belt.build(4, 2, 1);
+  for (let y = 2; y < 7; y++)
+    Belt.build(5, y, 2);
+  Belt.build(5, 7, 3);
 }
 
 function draw() {
