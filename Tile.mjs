@@ -25,13 +25,6 @@ class Tile {
 
   tick() { }
 
-  summon(face, clr) {
-    const pos = faceToVec(face).add(this.pos);
-
-    if (!colors.some(color => color.x === pos.x && color.y === pos.y))
-      colors.push(new Color(pos.x, pos.y, clr));
-  }
-
   draw() {
     fill(220);
     stroke(0);
@@ -49,17 +42,16 @@ class Generator extends Tile {
 
   constructor(x, y, dir, clr) {
     super(x, y)
+    this.dir = dir;
     this.clr = clr;
     this.faces[dir] = 2;
   }
 
   tick() {
-    for (let i = 0; i < 4; i++) {
-      const face = this.faces[i];
-      const tile = this.faceTile(i);
-      if (face === 2)
-        tile.summon(i, this.clr);
-    }
+    const nextPos = faceToVec(this.dir).add(this.pos);
+
+    if (!Color.at(nextPos))
+      colors.push(new Color(nextPos.x, nextPos.y, this.clr));
   }
 
   draw() {
