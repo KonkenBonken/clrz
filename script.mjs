@@ -51,7 +51,10 @@ function draw() {
   }
 
   for (const row of grid)
-    for (const tile of row)
+    for (const tile of row.filter(tile => tile.type))
+      tile.draw();
+  for (const row of grid)
+    for (const tile of row.filter(tile => !tile.type))
       tile.draw();
 
   for (const color of colors)

@@ -1,3 +1,7 @@
+function clamp(number, min, max) {
+  return Math.max(min, Math.min(number, max));
+}
+
 class Tile {
   static build(x, y, ...args) {
     grid[y][x] = new this(x, y, ...args);
@@ -29,7 +33,9 @@ class Tile {
   }
 
   draw() {
-    noFill();
+    fill(220);
+    stroke(0);
+    strokeWeight(1);
     square(
       this.x * tileSize,
       this.y * tileSize,
@@ -58,6 +64,8 @@ class Generator extends Tile {
 
   draw() {
     fill(100);
+    stroke(0);
+    strokeWeight(1);
     square(
       this.x * tileSize,
       this.y * tileSize,
@@ -70,17 +78,40 @@ class Belt extends Tile {
   type = 'belt'
 
   constructor(x, y, dir) {
-    super(x, y)
+    super(x, y);
+    this.dir = dir;
     this.faces[dir] = 2;
     this.faces[dir + 2 % 4] = 1;
   }
 
   draw() {
     fill(150);
+    noStroke();
     square(
       this.x * tileSize,
       this.y * tileSize,
       tileSize
     );
+
+    stroke(100);
+    strokeWeight(3);
+
+    for (let i = -3; i <= 3; i++) {
+      const point = this.pos.copy().add(.5, .5).add(faceToVec(this.dir).mult((i + frameCount % 20 / 20) / 5)).mult(tileSize);
+      const heading = faceToVec(this.dir).rotate(-QUARTER_PI).mult(tileSize * -.2);
+      const p1 = heading.copy(), p2 = heading.rotate(HALF_PI);
+
+      p1.add(point);
+      p2.add(point);
+
+      line(
+        point.x, point.y,
+        p1.x, p1.y
+      );
+      line(
+        point.x, point.y,
+        p2.x, p2.y
+      );
+    }
   }
 }
