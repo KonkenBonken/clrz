@@ -13,20 +13,18 @@ class Color {
     if (this.tile.type === 'belt') {
       switch (this.tile.faces.findIndex(v => v === 2)) {
         case 0:
-          this.y -= .1
+          this.y -= 1;
           break
         case 1:
-          this.x += .1
+          this.x += 1;
           break
         case 2:
-          this.y += .1
+          this.y += 1;
           break
         case 3:
-          this.x -= .1
+          this.x -= 1;
           break
       }
-      this.x = +this.x.toFixed(2);
-      this.y = +this.y.toFixed(2);
     }
   }
 

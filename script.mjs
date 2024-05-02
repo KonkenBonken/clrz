@@ -23,12 +23,13 @@ function draw() {
 
   const tileSize = min(width / gridSize.x, height / gridSize.y);
 
-  for (const row of grid)
-    for (const tile of row)
-      tile.tick(frameCount % 20 === 0);
-  for (const color of colors)
-    color.tick();
-
+  if (frameCount % 20 === 0) {
+    for (const row of grid)
+      for (const tile of row)
+        tile.tick();
+    for (const color of colors)
+      color.tick();
+  }
 
   for (const row of grid)
     for (const tile of row)

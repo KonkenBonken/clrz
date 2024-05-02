@@ -25,23 +25,23 @@ class Tile {
         this.faces = [0, 0, 0, 0];
         this.faces[dir] = 2;
         this.clr = [255, 0, 0];
+        break;
       case 'belt':
         this.faces = [0, 0, 0, 0];
         this.faces[dir] = 2;
         this.faces[dir + 2 % 4] = 1;
-
+        break;
     }
   }
 
-  tick(sec) {
-    if (sec)
-      if (this.type === 'generator')
-        for (let i = 0; i < 4; i++) {
-          const face = this.faces[i];
-          const tile = this.getTile(i);
-          if (face === 2)
-            tile.summon(i, this.clr);
-        }
+  tick() {
+    if (this.type === 'generator')
+      for (let i = 0; i < 4; i++) {
+        const face = this.faces[i];
+        const tile = this.getTile(i);
+        if (face === 2)
+          tile.summon(i, this.clr);
+      }
   }
 
   summon(face, clr) {
@@ -49,16 +49,16 @@ class Tile {
 
     switch (face) {
       case 0:
-        pos.set(this.x, this.y - .49);
+        pos.set(this.x, this.y - 1);
         break
       case 1:
-        pos.set(this.x - .49, this.y);
+        pos.set(this.x + 1, this.y);
         break
       case 2:
-        pos.set(this.x, this.y + .49);
+        pos.set(this.x, this.y + 1);
         break
       case 3:
-        pos.set(this.x + .49, this.y);
+        pos.set(this.x - 1, this.y);
         break
     }
 
