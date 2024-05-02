@@ -36,7 +36,7 @@ function setup() {
   Belt.build(5, 2, 2);
   Belt.build(5, 3, 2);
   Belt.build(5, 4, 2);
-  Belt.build(5, 5, 3);
+  Mixer.build(5, 5, 3);
   Belt.build(4, 5, 3);
   Trash.build(3, 5);
   Belt.build(5, 6, 0);
@@ -57,13 +57,13 @@ function draw() {
   }
 
   for (const row of grid)
-    for (const tile of row.filter(tile => tile.type && tile.type !== 'trash'))
+    for (const tile of row.filter(tile => tile.type && tile.type === 'belt'))
       tile.draw();
   for (const row of grid)
     for (const tile of row.filter(tile => !tile.type))
       tile.draw();
   for (const row of grid)
-    for (const tile of row.filter(tile => tile.type === 'trash'))
+    for (const tile of row.filter(tile => tile.type !== 'belt'))
       tile.draw();
 
 

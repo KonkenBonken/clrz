@@ -10,6 +10,7 @@ class Color {
     this.pos = vec(x, y);
     this.prevPos = this.pos;
     this.clr = clr;
+    this.inside = 0;
   }
 
   get tile() {
@@ -19,12 +20,23 @@ class Color {
   tick() {
     this.prevPos.set(this.pos);
 
+    this.inside = this.inside ? 2 : 0;
+
     switch (this.tile.type) {
       case 'belt': {
         const newPos = this.pos.copy().add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
 
-        if (!Color.at(newPos))
+        const nextTile = Tile.at(newPos),
+          dir = this.pos.angleBetween(newPos);
+        if (nextTile.type === 'mixer' && !nextTile.content[dir]) {
           this.pos = newPos;
+          this.inside = 1;
+          nextTile.content[dir] = this;
+        }
+
+        else if (!Color.at(newPos))
+          this.pos = newPos;
+
         break
       }
       case 'trash': {
@@ -40,11 +52,19 @@ class Color {
       .add(.5, .5)
       .mult(tileSize);
 
+    let size = .8;
+
+    if (this.inside === 1)
+      size = map(frameCount % 20, 0, 20, size, .2);
+    else if (this.inside === 2)
+      size = .2;
+
+
     fill(...this.clr);
     circle(
       pos.x,
       pos.y,
-      tileSize * .8
+      tileSize * size
     );
   }
 }
