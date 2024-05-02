@@ -15,10 +15,6 @@ function faceToVec(face) {
   }
 }
 
-function tileAt({ x, y }) {
-  return grid[y][x];
-}
-
 function setup() {
   vec = createVector;
 

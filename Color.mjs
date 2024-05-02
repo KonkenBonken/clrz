@@ -2,6 +2,10 @@ class Color {
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
 
+  static at(pos) {
+    return colors.find(color => color.pos.equals(pos));
+  }
+
   constructor(x, y, clr) {
     this.pos = vec(x, y);
     this.prevPos = this.pos;
@@ -9,7 +13,7 @@ class Color {
   }
 
   get tile() {
-    return tileAt(this.pos);
+    return Tile.at(this.pos);
   }
 
   tick() {

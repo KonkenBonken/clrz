@@ -3,6 +3,10 @@ class Tile {
     grid[y][x] = new this(x, y, ...args);
   }
 
+  static at({ x, y }) {
+    return grid[y][x];
+  }
+
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
 
@@ -12,7 +16,7 @@ class Tile {
   }
 
   faceTile(face) {
-    return tileAt(faceToVec(face).add(this.pos));
+    return Tile.at(faceToVec(face).add(this.pos));
   }
 
   tick() { }
