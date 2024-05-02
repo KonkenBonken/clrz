@@ -24,7 +24,7 @@ class Tile {
       colors.push(new Color(pos.x, pos.y, clr));
   }
 
-  draw(tileSize) {
+  draw() {
     noFill();
     square(
       this.x * tileSize,
@@ -52,7 +52,7 @@ class Generator extends Tile {
     }
   }
 
-  draw(tileSize) {
+  draw() {
     fill(100);
     square(
       this.x * tileSize,
@@ -71,7 +71,7 @@ class Belt extends Tile {
     this.faces[dir + 2 % 4] = 1;
   }
 
-  draw(tileSize) {
+  draw() {
     fill(150);
     square(
       this.x * tileSize,

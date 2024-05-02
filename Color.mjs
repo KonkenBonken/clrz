@@ -16,7 +16,7 @@ class Color {
       this.pos.add(faceToVec(this.tile.faces.findIndex(v => v === 2)))
   }
 
-  draw(tileSize) {
+  draw() {
     fill(...this.clr);
 
     circle(

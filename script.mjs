@@ -1,6 +1,6 @@
 /// <reference path="./@types/global.d.ts" />
 
-let gridSize, grid, vec, colors = [];
+let gridSize, grid, tileSize, vec, colors = [];
 
 function faceToVec(face) {
   switch (face) {
@@ -30,6 +30,7 @@ function setup() {
 
   gridSize = vec(10, 10);
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
+  tileSize = min(width / gridSize.x, height / gridSize.y);
 
   Generator.build(1, 1, 1, [255, 0, 0]);
   Belt.build(2, 1, 1);
@@ -42,8 +43,6 @@ function draw() {
   background(220);
   stroke(0);
 
-  const tileSize = min(width / gridSize.x, height / gridSize.y);
-
   if (frameCount % 20 === 0) {
     for (const row of grid)
       for (const tile of row)
@@ -54,8 +53,8 @@ function draw() {
 
   for (const row of grid)
     for (const tile of row)
-      tile.draw(tileSize);
+      tile.draw();
 
   for (const color of colors)
-    color.draw(tileSize);
+    color.draw();
 }
