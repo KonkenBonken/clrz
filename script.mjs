@@ -1,15 +1,18 @@
 /// <reference path="./@types/global.d.ts" />
 
-let gridSize, grid, colors = [];
+let gridSize, grid, vec, colors = [];
+
 
 function setup() {
+  vec = createVector;
+
   createCanvas(
     min(document.body.clientWidth, document.body.clientHeight),
     min(document.body.clientWidth, document.body.clientHeight)
   );
   frameRate(20);
 
-  gridSize = createVector(10, 10);
+  gridSize = vec(10, 10);
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
 
   grid[1][1].setType('generator');

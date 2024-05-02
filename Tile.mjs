@@ -3,7 +3,7 @@ class Tile {
   get y() { return this.pos.y; }
 
   constructor(x, y) {
-    this.pos = createVector(x, y);
+    this.pos = vec(x, y);
     this.faces = [0, 0, 0, 0]; // 0:no, 1:in, 2:out
   }
 
@@ -47,7 +47,7 @@ class Tile {
   }
 
   summon(face, clr) {
-    const pos = createVector();
+    const pos = vec();
 
     switch (face) {
       case 0:

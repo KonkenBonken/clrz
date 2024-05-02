@@ -3,7 +3,7 @@ class Color {
   get y() { return this.pos.y; }
 
   constructor(x, y, clr) {
-    this.pos = createVector(x, y);
+    this.pos = vec(x, y);
     this.clr = clr;
   }
 
