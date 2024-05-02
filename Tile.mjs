@@ -1,4 +1,8 @@
 class Tile {
+  static build(x, y, ...args) {
+    grid[y][x] = new this(x, y, ...args);
+  }
+
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
 
