@@ -1,7 +1,9 @@
 class Tile {
+  get x() { return this.pos.x; }
+  get y() { return this.pos.y; }
+
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    this.pos = createVector(x, y);
     this.faces = [0, 0, 0, 0]; // 0:no, 1:in, 2:out
   }
 

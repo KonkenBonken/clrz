@@ -1,7 +1,9 @@
 class Color {
+  get x() { return this.pos.x; }
+  get y() { return this.pos.y; }
+
   constructor(x, y, clr) {
-    this.x = x;
-    this.y = y;
+    this.pos = createVector(x, y);
     this.clr = clr;
   }
 
@@ -13,16 +15,16 @@ class Color {
     if (this.tile.type === 'belt') {
       switch (this.tile.faces.findIndex(v => v === 2)) {
         case 0:
-          this.y -= 1;
+          this.pos.y -= 1;
           break
         case 1:
-          this.x += 1;
+          this.pos.x += 1;
           break
         case 2:
-          this.y += 1;
+          this.pos.y += 1;
           break
         case 3:
-          this.x -= 1;
+          this.pos.x -= 1;
           break
       }
     }
