@@ -8,26 +8,12 @@ class Color {
   }
 
   get tile() {
-    return grid[round(this.y)][round(this.x)];
+    return tileAt(this.pos);
   }
 
   tick() {
-    if (this.tile.type === 'belt') {
-      switch (this.tile.faces.findIndex(v => v === 2)) {
-        case 0:
-          this.pos.y -= 1;
-          break
-        case 1:
-          this.pos.x += 1;
-          break
-        case 2:
-          this.pos.y += 1;
-          break
-        case 3:
-          this.pos.x -= 1;
-          break
-      }
-    }
+    if (this.tile.type === 'belt')
+      this.pos.add(faceToVec(this.tile.faces.findIndex(v => v === 2)))
   }
 
   draw(tileSize) {

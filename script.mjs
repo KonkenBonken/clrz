@@ -2,6 +2,22 @@
 
 let gridSize, grid, vec, colors = [];
 
+function faceToVec(face) {
+  switch (face) {
+    case 0:
+      return vec(0, -1);
+    case 1:
+      return vec(+1, 0);
+    case 2:
+      return vec(0, +1);
+    case 3:
+      return vec(-1, 0);
+  }
+}
+
+function tileAt({ x, y }) {
+  return grid[y][x];
+}
 
 function setup() {
   vec = createVector;

@@ -7,17 +7,8 @@ class Tile {
     this.faces = [0, 0, 0, 0]; // 0:no, 1:in, 2:out
   }
 
-  getTile(face) {
-    switch (face) {
-      case 0:
-        return grid[this.y - 1][this.x];
-      case 1:
-        return grid[this.y][this.x + 1];
-      case 2:
-        return grid[this.y + 1][this.x];
-      case 3:
-        return grid[this.y][this.x - 1];
-    }
+  faceTile(face) {
+    return tileAt(faceToVec(face).add(this.pos));
   }
 
   setType(type, dir = 1) {
@@ -40,29 +31,14 @@ class Tile {
     if (this.type === 'generator')
       for (let i = 0; i < 4; i++) {
         const face = this.faces[i];
-        const tile = this.getTile(i);
+        const tile = this.faceTile(i);
         if (face === 2)
           tile.summon(i, this.clr);
       }
   }
 
   summon(face, clr) {
-    const pos = vec();
-
-    switch (face) {
-      case 0:
-        pos.set(this.x, this.y - 1);
-        break
-      case 1:
-        pos.set(this.x + 1, this.y);
-        break
-      case 2:
-        pos.set(this.x, this.y + 1);
-        break
-      case 3:
-        pos.set(this.x - 1, this.y);
-        break
-    }
+    const pos = faceToVec(face).add(this.pos);
 
     if (!colors.some(color => color.x === pos.x && color.y === pos.y))
       colors.push(new Color(pos.x, pos.y, clr));
