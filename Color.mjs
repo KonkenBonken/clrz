@@ -17,11 +17,14 @@ class Color {
   }
 
   tick() {
+    this.prevPos.set(this.pos);
+
     if (this.tile.type === 'belt') {
-      this.prevPos = this.pos.copy();
-      this.pos.add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
-    } else
-      this.prevPos.set(this.pos);
+      const newPos = this.pos.copy().add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
+
+      if (!Color.at(newPos))
+        this.pos = newPos;
+    }
   }
 
   draw() {
