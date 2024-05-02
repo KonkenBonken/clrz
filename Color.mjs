@@ -4,6 +4,7 @@ class Color {
 
   constructor(x, y, clr) {
     this.pos = vec(x, y);
+    this.prevPos = this.pos;
     this.clr = clr;
   }
 
@@ -12,16 +13,19 @@ class Color {
   }
 
   tick() {
-    if (this.tile.type === 'belt')
-      this.pos.add(faceToVec(this.tile.faces.findIndex(v => v === 2)))
+    if (this.tile.type === 'belt') {
+      this.prevPos = this.pos.copy();
+      this.pos.add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
+    }
   }
 
   draw() {
-    fill(...this.clr);
+    const pos = this.prevPos.slerp(this.pos, frameCount % 20 / 20);
 
+    fill(...this.clr);
     circle(
-      this.x * tileSize + tileSize * .5,
-      this.y * tileSize + tileSize * .5,
+      pos.x * tileSize + tileSize * .5,
+      pos.y * tileSize + tileSize * .5,
       tileSize * .8
     );
   }
