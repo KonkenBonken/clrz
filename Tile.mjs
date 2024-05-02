@@ -107,3 +107,23 @@ class Belt extends Tile {
     }
   }
 }
+
+class Trash extends Tile {
+  type = 'trash'
+
+  constructor(x, y) {
+    super(x, y)
+    this.faces = [1, 1, 1, 1];
+  }
+
+  draw() {
+    fill(100, 60, 50);
+    stroke(0);
+    strokeWeight(1);
+    square(
+      (this.x + .1) * tileSize,
+      (this.y + .1) * tileSize,
+      tileSize * .8
+    );
+  }
+}

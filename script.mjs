@@ -22,7 +22,7 @@ function setup() {
     min(document.body.clientWidth, document.body.clientHeight),
     min(document.body.clientWidth, document.body.clientHeight)
   );
-  frameRate(20);
+  frameRate(30);
 
   gridSize = vec(10, 10);
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
@@ -33,9 +33,15 @@ function setup() {
   Belt.build(3, 1, 1);
   Belt.build(4, 1, 2);
   Belt.build(4, 2, 1);
-  for (let y = 2; y < 7; y++)
-    Belt.build(5, y, 2);
-  Belt.build(5, 7, 3);
+  Belt.build(5, 2, 2);
+  Belt.build(5, 3, 2);
+  Belt.build(5, 4, 2);
+  Belt.build(5, 5, 3);
+  Belt.build(4, 5, 3);
+  Trash.build(3, 5);
+  Belt.build(5, 6, 0);
+  Belt.build(5, 7, 0);
+  Generator.build(6, 7, 3, [0, 0, 255]);
 }
 
 function draw() {
@@ -51,11 +57,15 @@ function draw() {
   }
 
   for (const row of grid)
-    for (const tile of row.filter(tile => tile.type))
+    for (const tile of row.filter(tile => tile.type && tile.type !== 'trash'))
       tile.draw();
   for (const row of grid)
     for (const tile of row.filter(tile => !tile.type))
       tile.draw();
+  for (const row of grid)
+    for (const tile of row.filter(tile => tile.type === 'trash'))
+      tile.draw();
+
 
   for (const color of colors)
     color.draw();

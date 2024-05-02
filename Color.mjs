@@ -19,11 +19,18 @@ class Color {
   tick() {
     this.prevPos.set(this.pos);
 
-    if (this.tile.type === 'belt') {
-      const newPos = this.pos.copy().add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
+    switch (this.tile.type) {
+      case 'belt': {
+        const newPos = this.pos.copy().add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
 
-      if (!Color.at(newPos))
-        this.pos = newPos;
+        if (!Color.at(newPos))
+          this.pos = newPos;
+        break
+      }
+      case 'trash': {
+        colors = colors.filter(clr => clr !== this);
+        break
+      }
     }
   }
 
