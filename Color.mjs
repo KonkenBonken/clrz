@@ -16,16 +16,20 @@ class Color {
     if (this.tile.type === 'belt') {
       this.prevPos = this.pos.copy();
       this.pos.add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
-    }
+    } else
+      this.prevPos.set(this.pos);
   }
 
   draw() {
-    const pos = this.prevPos.slerp(this.pos, frameCount % 20 / 20);
+    const pos = this.prevPos.copy()
+      .slerp(this.pos, frameCount % 20 / 20)
+      .add(.5, .5)
+      .mult(tileSize);
 
     fill(...this.clr);
     circle(
-      pos.x * tileSize + tileSize * .5,
-      pos.y * tileSize + tileSize * .5,
+      pos.x,
+      pos.y,
       tileSize * .8
     );
   }
