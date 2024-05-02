@@ -1,3 +1,5 @@
+/// <reference path="./@types/global.d.ts" />
+
 let gridSize, grid, colors = [];
 
 function setup() {
