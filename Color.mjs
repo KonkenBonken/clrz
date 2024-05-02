@@ -34,7 +34,10 @@ class Color {
           nextTile.content[dir] = this;
         }
 
-        else if (!Color.at(newPos))
+        else if (nextTile.type === 'trash')
+          this.inside = 1;
+
+        if (!Color.at(newPos))
           this.pos = newPos;
 
         break
