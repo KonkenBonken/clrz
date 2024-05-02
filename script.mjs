@@ -31,11 +31,11 @@ function setup() {
   gridSize = vec(10, 10);
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
 
-  grid[1][1].setType('generator');
-  grid[1][2].setType('belt', 1);
-  grid[1][3].setType('belt', 1);
-  grid[1][4].setType('belt', 2);
-  grid[2][4].setType('belt', 1);
+  grid[1][1] = new Generator(1, 1, 1, [255, 0, 0]);
+  grid[1][2] = new Belt(2, 1, 1);
+  grid[1][3] = new Belt(3, 1, 1);
+  grid[1][4] = new Belt(4, 1, 2);
+  grid[2][4] = new Belt(4, 2, 1);
 }
 
 function draw() {

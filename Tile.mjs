@@ -11,31 +11,7 @@ class Tile {
     return tileAt(faceToVec(face).add(this.pos));
   }
 
-  setType(type, dir = 1) {
-    this.type = type;
-    switch (type) {
-      case 'generator':
-        this.faces = [0, 0, 0, 0];
-        this.faces[dir] = 2;
-        this.clr = [255, 0, 0];
-        break;
-      case 'belt':
-        this.faces = [0, 0, 0, 0];
-        this.faces[dir] = 2;
-        this.faces[dir + 2 % 4] = 1;
-        break;
-    }
-  }
-
-  tick() {
-    if (this.type === 'generator')
-      for (let i = 0; i < 4; i++) {
-        const face = this.faces[i];
-        const tile = this.faceTile(i);
-        if (face === 2)
-          tile.summon(i, this.clr);
-      }
-  }
+  tick() { }
 
   summon(face, clr) {
     const pos = faceToVec(face).add(this.pos);
@@ -45,17 +21,54 @@ class Tile {
   }
 
   draw(tileSize) {
-    switch (this.type) {
-      case 'generator':
-        fill(100);
-        break
-      case 'belt':
-        fill(150);
-        break
-      default:
-        noFill();
-    }
+    noFill();
+    square(
+      this.x * tileSize,
+      this.y * tileSize,
+      tileSize
+    );
+  }
+}
 
+class Generator extends Tile {
+  type = 'generator'
+
+  constructor(x, y, dir, clr) {
+    super(x, y)
+    this.clr = clr;
+    this.faces[dir] = 2;
+  }
+
+  tick() {
+    for (let i = 0; i < 4; i++) {
+      const face = this.faces[i];
+      const tile = this.faceTile(i);
+      if (face === 2)
+        tile.summon(i, this.clr);
+    }
+  }
+
+  draw(tileSize) {
+    fill(100);
+    square(
+      this.x * tileSize,
+      this.y * tileSize,
+      tileSize
+    );
+  }
+}
+
+class Belt extends Tile {
+  type = 'belt'
+
+  constructor(x, y, dir) {
+    super(x, y)
+    this.faces[dir] = 2;
+    this.faces[dir + 2 % 4] = 1;
+  }
+
+  draw(tileSize) {
+    fill(150);
     square(
       this.x * tileSize,
       this.y * tileSize,
