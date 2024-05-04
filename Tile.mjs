@@ -14,6 +14,11 @@ class Tile {
   get x() { return this.pos.x; }
   get y() { return this.pos.y; }
 
+  get isHovered() {
+    return this.x * tileSize <= mouseX && mouseX <= (this.x + 1) * tileSize
+      && this.y * tileSize <= mouseY && mouseY <= (this.y + 1) * tileSize;
+  }
+
   constructor(x, y) {
     this.pos = vec(x, y);
     this.faces = [0, 0, 0, 0]; // 0:no, 1:in, 2:out

@@ -50,6 +50,7 @@ function setup() {
 function draw() {
   background(220);
   stroke(0);
+  cursor(ARROW);
 
   if (frameCount % 20 === 0) {
     for (const row of grid)
