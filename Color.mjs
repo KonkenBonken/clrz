@@ -6,6 +6,16 @@ class Color {
     return colors.find(color => color.pos.equals(pos));
   }
 
+  static ats(pos) {
+    return colors.filter(color => color.pos.equals(pos));
+  }
+
+  static mix(colors) {
+    return colors.map(color => color.clr)
+      .reduce((a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]], [0, 0, 0])
+      .map(v => v / colors.length);
+  }
+
   constructor(x, y, clr) {
     this.pos = vec(x, y);
     this.prevPos = this.pos;
@@ -24,20 +34,22 @@ class Color {
 
     switch (this.tile.type) {
       case 'belt': {
-        const newPos = this.pos.copy().add(faceToVec(this.tile.faces.findIndex(v => v === 2)));
+        const newPos = this.pos.copy().add(faceToVec(this.tile.faces.findIndex(v => v === 2))),
+          nextTile = Tile.at(newPos);
 
-        const nextTile = Tile.at(newPos),
-          dir = this.pos.angleBetween(newPos);
-        if (nextTile.type === 'mixer' && !nextTile.content[dir]) {
-          this.pos = newPos;
-          this.inside = 1;
-          nextTile.content[dir] = this;
+        if (nextTile.type === 'mixer') {
+          if (Color.at(this.pos.copy().add(newPos.copy().sub(this.pos).mult(2)))) {
+            this.pos = newPos;
+            this.inside = 1;
+          }
         }
 
-        else if (nextTile.type === 'trash')
+        else if (nextTile.type === 'trash') {
           this.inside = 1;
+          this.pos = newPos;
+        }
 
-        if (!Color.at(newPos))
+        else if (!Color.at(newPos))
           this.pos = newPos;
 
         break

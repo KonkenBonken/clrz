@@ -131,31 +131,33 @@ class Trash extends Tile {
 class Mixer extends Tile {
   type = 'mixer'
   working = false;
-  content = {};
 
   constructor(x, y, dir) {
     super(x, y);
     this.dir = dir;
     this.faces[dir] = 2;
-    this.faces[dir + 1 % 4] = 1;
-    this.faces[dir - 1 % 4] = 1;
+    this.faces[(dir + 1) % 4] = 1;
+    this.faces[(dir - 1) % 4] = 1;
   }
 
   tick() {
-    const content = Object.values(this.content);
     const nextPos = faceToVec(this.dir).add(this.pos);
     this.working = false;
     this.clr = null;
 
 
-    if (content.length === 2 && !Color.at(nextPos)) {
-      const newColor = content[0].clr.map((v, i) => (v + content[1].clr[i]) / 2);
+    if (!Color.at(nextPos)) {
+      const content = Color.ats(this.pos);
 
-      colors.push(new Color(nextPos.x, nextPos.y, newColor));
-      colors = colors.filter(clr => !content.includes(clr));
-      this.content = {};
-      this.working = true;
-      this.clr = newColor;
+      if (content.length >= 2) {
+        const newColor = Color.mix(content);
+
+        colors.push(new Color(nextPos.x, nextPos.y, newColor));
+        colors = colors.filter(clr => !content.includes(clr));
+
+        this.working = true;
+        this.clr = newColor;
+      }
     }
   }
 
@@ -180,8 +182,8 @@ class Mixer extends Tile {
     circle(mid.x, mid.y, tileSize * (1 - ringSize));
 
     const p = faceToVec(this.dir).mult(.75).add(this.pos.copy().add(.9, .5)).mult(tileSize);
-    if (this.clr || Object.values(this.content).length)
-      fill(...(this.clr || Object.values(this.content)[0].clr));
+    if (this.clr)
+      fill(...this.clr);
     circle(p.x, p.y, tileSize * .2);
   }
 }
