@@ -7,7 +7,7 @@ const _Build = () => class Build {
   static draw() {
     for (const tile of this.drawTiles) {
       tile.draw();
-      if (tile.isHovered) {
+      if (tile.isHovered || tile.type === this.selected?.type) {
         fill(255, 70);
         noStroke();
         square(tile.x * tileSize, tile.y * tileSize, tileSize);
@@ -25,10 +25,26 @@ const _Build = () => class Build {
 }
 
 function mouseClicked() {
-  Build.selected = new (Build.drawTiles.find(tile => tile.isHovered)?.__proto__.constructor)(mouseX / tileSize, mouseY / tileSize, 1);
+  const tileClass = Build.drawTiles.find(tile => tile.isHovered)?.__proto__.constructor;
+  if (tileClass)
+    Build.selected = new tileClass(mouseX / tileSize, mouseY / tileSize, 1);
+
+  else if (Build.selected) {
+    const pos = vec(Math.floor(mouseX / tileSize), Math.floor(mouseY / tileSize)),
+      tileClass = Build.selected?.__proto__.constructor;
+
+    if (0 <= pos.x && pos.x < 10 && 0 <= pos.y && pos.y < 10)
+      tileClass.build(pos.x, pos.y, 1);
+  }
 }
 
 function mouseMoved() {
-  if (Build.selected)
-    Build.selected.pos.set(mouseX / tileSize, mouseY / tileSize);
+  if (Build.selected) {
+    let pos = vec(Math.floor(mouseX / tileSize), Math.floor(mouseY / tileSize));
+
+    if (0 > pos.x || pos.x >= 10)
+      pos = vec(mouseX / tileSize, mouseY / tileSize);
+
+    Build.selected.pos.set(pos);
+  }
 }
