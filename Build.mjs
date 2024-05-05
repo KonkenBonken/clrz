@@ -1,5 +1,5 @@
 const _Build = () => class Build {
-  static tiles = [Belt, Mixer, Trash];
+  static tiles = [Belt, Mixer, Trash, Eraser];
   static drawTiles = this.tiles.map((Tile, i) => new Tile(11, i * 9 / this.tiles.length + 1.5, 1));
 
   static selected = null;
@@ -34,7 +34,7 @@ function mouseClicked() {
       tileClass = Build.selected?.__proto__.constructor;
 
     if (0 <= pos.x && pos.x < 10 && 0 <= pos.y && pos.y < 10)
-      tileClass.build(pos.x, pos.y, Build.selected.dir);
+      tileClass.build(pos.x, pos.y, Build.selected?.dir);
   }
 }
 
@@ -53,5 +53,27 @@ function keyPressed() {
   if (key === 'r' && Build.selected) {
     Build.selected.dir++;
     Build.selected.dir %= 4;
+  }
+}
+
+class Eraser extends Tile {
+  type = 'eraser'
+
+  static build(x, y) {
+    grid[y][x] = new Tile(x, y);
+
+    const clrs = Color.ats(vec(x, y));
+    console.log(clrs)
+    colors = colors.filter(clr => !clrs.includes(clr));
+  }
+
+  draw() {
+    noStroke();
+    fill(230, 40, 0, 100);
+    square(
+      this.x * tileSize,
+      this.y * tileSize,
+      tileSize
+    );
   }
 }
