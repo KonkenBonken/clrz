@@ -30,11 +30,16 @@ function mouseClicked() {
     Build.selected = new tileClass(mouseX / tileSize, mouseY / tileSize, Build.selected?.dir ?? 1);
 
   else if (Build.selected) {
-    const pos = vec(Math.floor(mouseX / tileSize), Math.floor(mouseY / tileSize)),
-      tileClass = Build.selected?.__proto__.constructor;
+    const pos = vec(Math.floor(mouseX / tileSize), Math.floor(mouseY / tileSize));
+    if (pos.x >= 10)
+      Build.selected = null;
 
-    if (0 <= pos.x && pos.x < 10 && 0 <= pos.y && pos.y < 10)
-      tileClass.build(pos.x, pos.y, Build.selected?.dir);
+    else {
+      const tileClass = Build.selected?.__proto__.constructor;
+
+      if (0 <= pos.x && pos.x < 10 && 0 <= pos.y && pos.y < 10)
+        tileClass.build(pos.x, pos.y, Build.selected?.dir);
+    }
   }
 }
 
