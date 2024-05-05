@@ -27,14 +27,14 @@ const _Build = () => class Build {
 function mouseClicked() {
   const tileClass = Build.drawTiles.find(tile => tile.isHovered)?.__proto__.constructor;
   if (tileClass)
-    Build.selected = new tileClass(mouseX / tileSize, mouseY / tileSize, 1);
+    Build.selected = new tileClass(mouseX / tileSize, mouseY / tileSize, Build.selected?.dir ?? 1);
 
   else if (Build.selected) {
     const pos = vec(Math.floor(mouseX / tileSize), Math.floor(mouseY / tileSize)),
       tileClass = Build.selected?.__proto__.constructor;
 
     if (0 <= pos.x && pos.x < 10 && 0 <= pos.y && pos.y < 10)
-      tileClass.build(pos.x, pos.y, 1);
+      tileClass.build(pos.x, pos.y, Build.selected.dir);
   }
 }
 
@@ -46,5 +46,12 @@ function mouseMoved() {
       pos = vec(mouseX / tileSize, mouseY / tileSize);
 
     Build.selected.pos.set(pos);
+  }
+}
+
+function keyPressed() {
+  if (key === 'r' && Build.selected) {
+    Build.selected.dir++;
+    Build.selected.dir %= 4;
   }
 }
