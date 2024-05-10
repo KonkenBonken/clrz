@@ -44,7 +44,7 @@ class Color {
           }
         }
 
-        else if (nextTile.type === 'trash') {
+        else if (nextTile.type === 'trash' || nextTile.type === 'goal') {
           this.inside = 1;
           this.pos = newPos;
         }
@@ -54,6 +54,7 @@ class Color {
 
         break
       }
+      case 'goal':
       case 'trash': {
         colors = colors.filter(clr => clr !== this);
         break

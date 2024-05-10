@@ -38,7 +38,7 @@ function setup() {
   Belt.build(5, 4, 2);
   Mixer.build(5, 5, 3);
   Belt.build(4, 5, 3);
-  Trash.build(3, 5);
+  Goal.build(3, 5);
   Belt.build(5, 6, 0);
   Belt.build(5, 7, 0);
   Generator.build(6, 7, 3, [0, 0, 255]);

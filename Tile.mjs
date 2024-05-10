@@ -187,3 +187,20 @@ class Mixer extends Tile {
     circle(p.x, p.y, tileSize * .2);
   }
 }
+
+class Goal extends Tile {
+  type = 'goal'
+
+  draw() {
+    fill(0, 120, 170, 80);
+    stroke(0);
+    strokeWeight(1);
+
+    for (let i = 0; i < 8; i++)
+      circle(
+        (this.x + .5) * tileSize,
+        (this.y + .5) * tileSize,
+        tileSize * (map(noise(frameCount / 25, i * 20), 0, 1, .8, .95) - i / 10)
+      );
+  }
+}
