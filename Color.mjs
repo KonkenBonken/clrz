@@ -45,6 +45,8 @@ class Color {
         }
 
         else if (nextTile.type === 'trash' || nextTile.type === 'goal') {
+          if (nextTile.type === 'goal' && nextTile.clr.join() === this.clr.join())
+            nextTile.count++;
           this.inside = 1;
           this.pos = newPos;
         }

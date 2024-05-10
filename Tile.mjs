@@ -190,6 +190,14 @@ class Mixer extends Tile {
 
 class Goal extends Tile {
   type = 'goal'
+  static count = 0;
+
+  get count() {
+    return Goal.count;
+  }
+  set count(v) {
+    Goal.count = v;
+  }
 
   constructor(x, y, clr) {
     super(x, y)
@@ -205,7 +213,7 @@ class Goal extends Tile {
       circle(
         (this.x + .5) * tileSize,
         (this.y + .5) * tileSize,
-        tileSize * (map(noise(frameCount / 25, i * 20), 0, 1, .8, .95) - i / 10)
+        tileSize * (map(noise(frameCount * clamp(Goal.count + 1, 0, 50) / 100, i * 20), 0, 1, .8, .95) - i / 10)
       );
   }
 }
