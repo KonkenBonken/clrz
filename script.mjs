@@ -27,6 +27,7 @@ function setup() {
     min(document.body.clientHeight, document.body.clientWidth / aspectRatio)
   );
   frameRate(30);
+  colorMode(RGB, 360);
 
   gridSize = vec(10, 10);
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
@@ -36,7 +37,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(310);
   stroke(0);
   cursor(ARROW);
 

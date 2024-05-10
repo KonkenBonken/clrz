@@ -31,7 +31,7 @@ class Tile {
   tick() { }
 
   draw() {
-    fill(220);
+    fill(310);
     stroke(0);
     strokeWeight(1);
     square(
@@ -57,7 +57,7 @@ class Generator extends Tile {
   }
 
   draw() {
-    fill(100);
+    fill(140);
     stroke(0);
     strokeWeight(1);
     square(
@@ -79,7 +79,7 @@ class Belt extends Tile {
   }
 
   draw() {
-    fill(150);
+    fill(210);
     noStroke();
     square(
       this.x * tileSize,
@@ -87,7 +87,7 @@ class Belt extends Tile {
       tileSize
     );
 
-    stroke(100);
+    stroke(140);
     strokeWeight(3);
 
     for (let i = -3; i <= 3; i++) {
@@ -119,7 +119,7 @@ class Trash extends Tile {
   }
 
   draw() {
-    fill(100, 60, 50);
+    fill(140, 85, 70);
     stroke(0);
     strokeWeight(1);
     square(
@@ -163,7 +163,7 @@ class Mixer extends Tile {
   }
 
   draw() {
-    fill(180);
+    fill(250);
     strokeWeight(1);
     stroke(0);
     square(
@@ -186,7 +186,7 @@ class Mixer extends Tile {
     if (this.clr)
       fill(...this.clr);
     else
-      fill(180);
+      fill(250);
     circle(p.x, p.y, tileSize * .2);
   }
 }
@@ -208,7 +208,7 @@ class Goal extends Tile {
   }
 
   draw() {
-    fill(...this.clr, 80);
+    fill(...this.clr, 110);
     stroke(0);
     strokeWeight(1);
 

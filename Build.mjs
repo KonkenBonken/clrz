@@ -8,14 +8,14 @@ const _Build = () => class Build {
     for (const tile of this.drawTiles) {
       tile.draw();
       if (tile.isHovered || tile.type === this.selected?.type) {
-        fill(255, 70);
+        fill(360, 100);
         noStroke();
         square(tile.x * tileSize, tile.y * tileSize, tileSize);
         cursor(HAND);
       }
     }
 
-    fill(220);
+    fill(310);
     noStroke();
     rect(10 * tileSize, 0, tileSize, 10 * tileSize);
 
@@ -74,7 +74,7 @@ class Eraser extends Tile {
 
   draw() {
     noStroke();
-    fill(230, 40, 0, 100);
+    fill(320, 60, 0, 140);
     square(
       this.x * tileSize,
       this.y * tileSize,
