@@ -1,6 +1,7 @@
 /// <reference path="./@types/global.d.ts" />
 
-let gridSize, grid, tileSize, vec, colors = [];
+let gridSize, grid, tileSize, vec;
+let colors = [], level = 0;
 
 function faceToVec(face) {
   switch (face) {
@@ -28,20 +29,7 @@ function setup() {
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
   tileSize = min(width / gridSize.x, height / gridSize.y);
 
-  Generator.build(1, 1, 1, [255, 0, 0]);
-  Belt.build(2, 1, 1);
-  Belt.build(3, 1, 1);
-  Belt.build(4, 1, 2);
-  Belt.build(4, 2, 1);
-  Belt.build(5, 2, 2);
-  Belt.build(5, 3, 2);
-  Belt.build(5, 4, 2);
-  Mixer.build(5, 5, 3);
-  Belt.build(4, 5, 3);
-  Goal.build(3, 5, [127.5, 0, 127.5]);
-  Belt.build(5, 6, 0);
-  Belt.build(5, 7, 0);
-  Generator.build(6, 7, 3, [0, 0, 255]);
+  Levels[level].setup();
 }
 
 function draw() {
