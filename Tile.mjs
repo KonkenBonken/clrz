@@ -186,9 +186,11 @@ class Mixer extends Tile {
     circle(mid.x, mid.y, tileSize * ringSize);
     circle(mid.x, mid.y, tileSize * (1 - ringSize));
 
-    const p = faceToVec(this.dir).mult(.75).add(this.pos.copy().add(.9, .5)).mult(tileSize);
+    const p = faceToVec(this.dir).mult(.75).mult(tileSize / 2).add(mid);
     if (this.clr)
       fill(...this.clr);
+    else
+      fill(180);
     circle(p.x, p.y, tileSize * .2);
   }
 }
