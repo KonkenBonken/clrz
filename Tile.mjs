@@ -53,7 +53,8 @@ class Generator extends Tile {
   }
 
   tick() {
-    colors.push(new Color(this.x, this.y, this.clr));
+    if (!Color.at(this.pos))
+      colors.push(new Color(this.x, this.y, this.clr));
   }
 
   draw() {
