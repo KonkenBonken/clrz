@@ -1,6 +1,8 @@
 /// <reference path="./@types/global.d.ts" />
 
-let gridSize, grid, tileSize, vec;
+const aspectRatio = 12 / 10;
+
+let gridSize, grid, tileSize, vec, Build;
 let colors = [], level = 0;
 
 function faceToVec(face) {
@@ -18,10 +20,11 @@ function faceToVec(face) {
 
 function setup() {
   vec = createVector;
+  Build = _Build();
 
   createCanvas(
-    min(document.body.clientWidth, document.body.clientHeight),
-    min(document.body.clientWidth, document.body.clientHeight)
+    min(document.body.clientWidth, document.body.clientHeight * aspectRatio),
+    min(document.body.clientHeight, document.body.clientWidth / aspectRatio)
   );
   frameRate(30);
 
@@ -35,6 +38,7 @@ function setup() {
 function draw() {
   background(220);
   stroke(0);
+  cursor(ARROW);
 
   if (frameCount % 20 === 0) {
     for (const row of grid)
@@ -57,4 +61,6 @@ function draw() {
 
   for (const color of colors)
     color.draw();
+
+  Build.draw();
 }
