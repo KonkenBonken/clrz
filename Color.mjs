@@ -33,8 +33,9 @@ class Color {
     this.inside = this.inside ? 2 : 0;
 
     switch (this.tile.type) {
+      case 'generator':
       case 'belt': {
-        const newPos = this.pos.copy().add(faceToVec(this.tile.faces.findIndex(v => v === 2))),
+        const newPos = this.pos.copy().add(faceToVec(this.tile.dir)),
           nextTile = Tile.at(newPos);
 
         if (nextTile.type === 'mixer') {

@@ -53,10 +53,7 @@ class Generator extends Tile {
   }
 
   tick() {
-    const nextPos = faceToVec(this.dir).add(this.pos);
-
-    if (!Color.at(nextPos))
-      colors.push(new Color(nextPos.x, nextPos.y, this.clr));
+    colors.push(new Color(this.x, this.y, this.clr));
   }
 
   draw() {
@@ -149,7 +146,6 @@ class Mixer extends Tile {
     const nextPos = faceToVec(this.dir).add(this.pos);
     this.working = false;
     this.clr = null;
-
 
     if (!Color.at(nextPos)) {
       const content = Color.ats(this.pos);
