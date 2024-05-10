@@ -46,6 +46,15 @@ function draw() {
         tile.tick();
     for (const color of colors)
       color.tick();
+
+    if (Goal.count >= Levels[level].goal) {
+      level++;
+      level %= Levels.length;
+      grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
+      Levels[level].setup();
+      Goal.count = 0;
+      colors = [];
+    }
   }
 
   for (const row of grid)
@@ -63,4 +72,10 @@ function draw() {
     color.draw();
 
   Build.draw();
+
+  fill(0);
+  textSize(30);
+  textAlign(CENTER, CENTER);
+  strokeWeight(1);
+  text(`${Goal.count} / ${Levels[level].goal}`, 10.5 * tileSize, .5 * tileSize)
 }
