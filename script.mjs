@@ -2,7 +2,8 @@
 
 const aspectRatio = 12 / 10;
 
-let gridSize, grid, tileSize, vec, Build, colors = [];
+let gridSize, grid, tileSize, vec, Build;
+let colors = [], level = 0;
 
 function faceToVec(face) {
   switch (face) {
@@ -31,20 +32,7 @@ function setup() {
   grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
   tileSize = min(width / gridSize.x, height / gridSize.y);
 
-  Generator.build(1, 1, 1, [255, 0, 0]);
-  Belt.build(2, 1, 1);
-  Belt.build(3, 1, 1);
-  Belt.build(4, 1, 2);
-  Belt.build(4, 2, 1);
-  Belt.build(5, 2, 2);
-  Belt.build(5, 3, 2);
-  Belt.build(5, 4, 2);
-  Mixer.build(5, 5, 3);
-  Belt.build(4, 5, 3);
-  Goal.build(3, 5, [127.5, 0, 127.5]);
-  Belt.build(5, 6, 0);
-  Belt.build(5, 7, 0);
-  Generator.build(6, 7, 3, [0, 0, 255]);
+  Levels[level].setup();
 }
 
 function draw() {
@@ -58,6 +46,15 @@ function draw() {
         tile.tick();
     for (const color of colors)
       color.tick();
+
+    if (Goal.count >= Levels[level].goal) {
+      level++;
+      level %= Levels.length;
+      grid = Array(gridSize.y).fill().map((_, y) => Array(gridSize.x).fill().map((_, x) => new Tile(x, y)));
+      Levels[level].setup();
+      Goal.count = 0;
+      colors = [];
+    }
   }
 
   for (const row of grid)
@@ -75,4 +72,10 @@ function draw() {
     color.draw();
 
   Build.draw();
+
+  fill(0);
+  textSize(30);
+  textAlign(CENTER, CENTER);
+  strokeWeight(1);
+  text(`${Goal.count} / ${Levels[level].goal}`, 10.5 * tileSize, .5 * tileSize)
 }
