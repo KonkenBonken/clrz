@@ -191,8 +191,13 @@ class Mixer extends Tile {
 class Goal extends Tile {
   type = 'goal'
 
+  constructor(x, y, clr) {
+    super(x, y)
+    this.clr = clr;
+  }
+
   draw() {
-    fill(0, 120, 170, 80);
+    fill(...this.clr, 80);
     stroke(0);
     strokeWeight(1);
 
